@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), INotesRvAdapter {
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
         ).get(NoteViewModel::class.java)
 
-        viewModel.allNotes.observe(this, Observer { list ->
+        viewModel.getAllNotes().observe(this, Observer { list ->
             list?.let {
                 adapter.updateList(it)
             }
@@ -46,13 +46,13 @@ class MainActivity : AppCompatActivity(), INotesRvAdapter {
     }
 
     override fun onItemClicked(note: Note) {
-        viewModel.deleteNote(note)
+        viewModel.delete(note)
     }
 
     fun submitData(view: View) {
         val noteText=etInput.text.toString()
         if (noteText.isNotEmpty()){
-            viewModel.insertNote(Note(noteText))
+            viewModel.insert(Note(noteText))
             Toast.makeText(this,"$noteText Inserted",Toast.LENGTH_SHORT).show()
         }
     }

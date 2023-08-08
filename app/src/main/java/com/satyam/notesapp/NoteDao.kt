@@ -10,7 +10,8 @@ import androidx.room.Query
 
 @Dao
 interface NoteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+
+    @Insert
     fun insert(note: Note)
 
     @Delete
@@ -18,4 +19,7 @@ interface NoteDao {
 
     @Query("Select * from notes_table order by id ASC")
     fun getAllNotes(): LiveData<List<Note>>
+
+
+
 }

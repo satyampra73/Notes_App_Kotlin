@@ -1,17 +1,35 @@
 package com.satyam.notesapp
 
+import android.app.Application
 import androidx.lifecycle.LiveData
+import com.satyam.notesapp.utils.subscribeOnBackground
 
- class NoteRepository(private val noteDao:NoteDao) {
-    val allNotes:LiveData<List<Note>> = noteDao.getAllNotes()
+class NoteRepository(application: Application) {
+     private var noteDao: NoteDao
+     private var allNotes: LiveData<List<Note>>
 
-    suspend fun insert(note:Note)
-    {
-        noteDao.insert(note)
-    }
+     private val database = NoteDatabase.getInstance(application)
 
-    suspend fun delete(note:Note)
-    {
-        noteDao.delete(note)
-    }
+     init {
+         noteDao = database.noteDao()
+         allNotes = noteDao.getAllNotes()
+     }
+
+     fun insert(note: Note) {
+         subscribeOnBackground {
+             noteDao.insert(note)
+         }
+     }
+
+
+     fun delete(note: Note) {
+         subscribeOnBackground {
+             noteDao.delete(note)
+         }
+     }
+
+
+     fun getAllNotes(): LiveData<List<Note>> {
+         return allNotes
+     }
 }
