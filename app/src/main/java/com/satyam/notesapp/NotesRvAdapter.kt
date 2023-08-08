@@ -33,7 +33,8 @@ class NotesRvAdapter(val context: Context, val listener: INotesRvAdapter) :
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
 
         holder.imgDelete.setOnClickListener {
-            allNotes[holder.adapterPosition]
+            listener.onItemClicked(allNotes[position])
+            updateList(allNotes)
         }
         val currentNote = allNotes[position]
         holder.txtNote.text = currentNote.text
