@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.satyam.notesapp.utils.subscribeOnBackground
+import com.satyam.notesapp.utils.doInBackground
 
 @Database(entities = [Note::class], version = 1)
 abstract class NoteDatabase :RoomDatabase(){
@@ -37,7 +37,7 @@ abstract class NoteDatabase :RoomDatabase(){
 
         private fun populateDatabase(db: NoteDatabase) {
             val noteDao = db.noteDao()
-            subscribeOnBackground {
+            doInBackground {
                 noteDao.insert(Note("title 1", 1))
                 noteDao.insert(Note("title 2", 2))
                 noteDao.insert(Note("title 3", 3))

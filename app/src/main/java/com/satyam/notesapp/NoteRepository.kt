@@ -2,7 +2,7 @@ package com.satyam.notesapp
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.satyam.notesapp.utils.subscribeOnBackground
+import com.satyam.notesapp.utils.doInBackground
 
 class NoteRepository(application: Application) {
      private var noteDao: NoteDao
@@ -16,18 +16,23 @@ class NoteRepository(application: Application) {
      }
 
      fun insert(note: Note) {
-         subscribeOnBackground {
+         doInBackground {
              noteDao.insert(note)
          }
      }
 
 
      fun delete(note: Note) {
-         subscribeOnBackground {
+         doInBackground {
              noteDao.delete(note)
          }
      }
 
+    fun update(note:Note){
+        doInBackground {
+            noteDao.update(note)
+        }
+    }
 
      fun getAllNotes(): LiveData<List<Note>> {
          return allNotes

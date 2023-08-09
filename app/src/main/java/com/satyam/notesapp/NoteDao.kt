@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface NoteDao {
@@ -17,9 +18,11 @@ interface NoteDao {
     @Delete
     fun delete(note: Note)
 
+    @Update
+    fun update(note:Note)
+
     @Query("Select * from notes_table order by id ASC")
     fun getAllNotes(): LiveData<List<Note>>
-
 
 
 }

@@ -4,7 +4,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-fun subscribeOnBackground(function: () -> Unit) {
+fun doInBackground(function: () -> Unit) {
     Single.fromCallable {
         function()
     }

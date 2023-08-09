@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 
 class MainActivity : AppCompatActivity(), INotesRvAdapter {
     lateinit var viewModel: NoteViewModel
@@ -38,15 +37,19 @@ class MainActivity : AppCompatActivity(), INotesRvAdapter {
 
         viewModel.getAllNotes().observe(this, Observer { list ->
             list?.let {
-                adapter.updateList(it)
+                adapter.delete(it)
             }
         })
 
 
     }
 
-    override fun onItemClicked(note: Note) {
+    override fun onDeleteClicked(note: Note) {
         viewModel.delete(note)
+    }
+
+    override fun onEditClicked(note: Note) {
+        viewModel.update(note)
     }
 
     fun submitData(view: View) {
